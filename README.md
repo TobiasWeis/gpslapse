@@ -1,4 +1,4 @@
-pse grabber and renderer for automotive sequences
+timelapse grabber and renderer for automotive sequences
 
 Usage: 
 
