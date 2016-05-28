@@ -11,6 +11,7 @@ c = conn.cursor()
 
 new_basepath = '/home/shared/data/TobisGpsSequence/'
 new_basepath = '/data/'
+new_basepath = '/media/weis/Transcend/Testfahrt/'
 
 rows = c.execute('SELECT * FROM sequences')
 

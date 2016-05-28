@@ -27,7 +27,8 @@ class DBInterface(object):
     def __init__(self):
         #self.engine = create_engine('sqlite://///home/weis/code/baltic_rallye_code/common/sequences.db')
         #self.engine = create_engine('sqlite://///home/pi/baltic_rallye_code/common/sequences.db')
-        self.engine = create_engine('sqlite://///home/weis/Desktop/baltic_rallye_code/common/sequences.db')
+        #self.engine = create_engine('sqlite://///home/weis/Desktop/baltic_rallye_code/common/sequences.db')
+        self.engine = create_engine('sqlite://///home/weis/code/gpslapse/common/sequences.db')
 
         self.base = declarative_base()
         self.meta = MetaData(bind=self.engine)
