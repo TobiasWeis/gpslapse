@@ -3,7 +3,7 @@ import numpy as np
 import cv2
 import glob
 
-outdir = "/data/tmp_files/"
+outdir = "./tmp_files/"
 
 files = glob.glob(outdir + "/img_*.png")
 files.sort()
@@ -50,7 +50,8 @@ for cnt, f in enumerate(files):
 
     img[gauge_top:gauge_top+gauge.shape[0], gauge_left:gauge_left+gauge.shape[1]] = roi
 
-    cv2.imshow("img", img)
-    cv2.imwrite(outdir + "/conc_%08d.png" % cnt, img)
+    #cv2.imshow("img", img)
+    #cv2.imwrite(outdir + "/conc_%08d.png" % cnt, img)
+    cv2.imwrite("/media/pi/Transcend/conc_%08d.png" % cnt, img)
 
     cv2.waitKey(10)
