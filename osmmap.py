@@ -1,6 +1,9 @@
 import smopy
 import numpy as np
 from utils import *
+from matplotlib.offsetbox import OffsetImage, AnnotationBbox
+from PIL import Image
+import cv2
 
 class OSMMap():
     def __init__(self):
@@ -12,6 +15,15 @@ class OSMMap():
         self.initial_coords = True
         self.map = None
         self.fig_map, ax = plt.subplots(ncols=1, nrows=1)
+
+    def get_angle(self, x1, y1, x2, y2):
+        dx = x2 - x1
+        dy = y2 - y1
+        rads = atan2(-dy,dx)
+        rads %= 2*pi
+        degs = degrees(rads)
+        return degs
+
 
     # ts is just cnt of the array
     def plot_map(self, ts):
@@ -42,18 +54,20 @@ class OSMMap():
             try:
                 print "Getting map"
                 self.map = smopy.Map((ll_lat, ll_lon, ur_lat, ur_lon), z=6)
-                x,y = self.map.to_pixels(self.coordinates[:,0], self.coordinates[:,1])
+                #x,y = self.map.to_pixels(self.coordinates[:,0], self.coordinates[:,1])
 
                 self.fig_map, ax = plt.subplots(ncols=1, nrows=1)
                 ax = self.map.show_mpl(ax=ax)
-
-                ax.plot(x,y,'go', ms=10, mew=0)
+                
+                for i in range(0,self.coordinates.shape[0]):
+                    coords = self.map.to_pixels(self.coordinates[i,0], self.coordinates[i,1])
+                    ax.plot(coords[0], coords[1], 'bo', ms=3)
 
                 cc = self.map.to_pixels(self.coordinates[ts,0], self.coordinates[ts,1])
                 self.current_coord = ax.plot(cc[0], cc[1], 'ro', ms=10)
 
                 # only if we do not refresh the map
-                self.initial_coords = False
+                self.initial_coords = False # FIXME: test!
             except Exception,e:
                 print "Exception in plot_map: ", e
         else:

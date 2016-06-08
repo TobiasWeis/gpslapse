@@ -1,3 +1,10 @@
+# TODO
+- use multiprocessing in create_map.py (pi has 4 cores)
+- color the current position based on current speed
+- enable rendering without creating gauge/timelapse-images
+- automatic cut-out of the map with matplotlib
+- speed-up?
+
 timelapse grabber and renderer for automotive sequences
 
 Result of this code can be seen here:

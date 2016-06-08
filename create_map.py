@@ -35,7 +35,7 @@ for s in sequences[:]:
         folder = s.folder
         print "Reading images from %s" % folder
         print "Got sequence w/ id: ", s.id
-        sframes = dbi.get_frames(s.id)[:200] # FIXME: remove limit to 200
+        sframes = dbi.get_frames(s.id)[::2] # FIXME: remove limit to 200
         # first run, get all coords
         last = []
         for i,f in enumerate(sframes):
@@ -81,5 +81,3 @@ for s in sequences[:]:
             #print gaugename
             cv2.imwrite(gaugename, speedgauge)
             cv2.imwrite(settings.outdir + "/img_%08d.png" %i, img)
-
-print "Got %d frames !" % (len(frames))
