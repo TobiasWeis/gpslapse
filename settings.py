@@ -6,3 +6,6 @@ class Settings():
         except:
             print "Directory already exists"
 
+        self.compute_images = True
+        self.compute_gauge = True
+        self.compute_kmh = True
