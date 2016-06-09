@@ -28,6 +28,21 @@ class OSMMap():
         degs = degrees(rads)
         return degs
 
+    def cut_map(self, img):
+        '''
+        cannot plot without borders,
+        currently the border is transparent, so we compute max/min of non-alpha-values
+        and return the image without borders
+        '''
+        ul_y = np.min(np.where(img[:,:,3] > 0)[0]) 
+        lr_y = np.max(np.where(img[:,:,3] > 0)[0]) 
+        ul_x = np.min(np.where(img[:,:,3] > 0)[1]) 
+        lr_x = np.max(np.where(img[:,:,3] > 0)[1]) 
+
+        img_new = img[ul_y:lr_y, ul_x:lr_x,:]
+        return img_new
+
+
     # ts is just cnt of the array
     def plot_map(self, ts, speed, outfile):
         if self.initial_coords:
@@ -92,8 +107,9 @@ class OSMMap():
             except Exception, e:
                 print e
 
+        cv2.imwrite(outfile, self.cut_map(fig2data(self.fig_map)))
 
-        self.fig_map.savefig(outfile, transparent=True, dpi=80)
+        #self.fig_map.savefig(outfile, transparent=True, dpi=80)
         #self.fig_map.savefig(outfile, dpi=200)
         #self.fig_map.canvas.print_png(outfile)
         #return fig2data(self.fig_map)
